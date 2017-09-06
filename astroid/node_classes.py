@@ -469,6 +469,20 @@ class NodeNG(object):
             for matching in child_node.nodes_of_class(klass, skip_klass):
                 yield matching
 
+    def parents_of_class(self, klass, skip_klass=None):
+        """return an iterator on parents which are instance of the given class(es)
+
+        klass may be a class object or a tuple of class objects
+        """
+        import pdb; pdb.set_trace()
+        if isinstance(self, klass):
+            yield self
+        for parent_node in self.parent:
+            if skip_klass is not None and isinstance(parent_node, skip_klass):
+                continue
+            for matching in parent_node.nodes_of_class(klass, skip_klass):
+                yield matching
+
     def _infer_name(self, frame, name):
         # overridden for ImportFrom, Import, Global, TryExcept and Arguments
         return None
